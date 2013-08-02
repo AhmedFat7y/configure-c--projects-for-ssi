@@ -72,5 +72,7 @@ def main():
         editDebugLink(link_child)
     else:
       pass
+  tree.write(argv[0])
+
 if __name__ == "main"
   main()
