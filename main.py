@@ -15,7 +15,7 @@ class ProjectConfigurator:
     self.SSI_CURRENT_PLUGIN_PREFIX = '%s'
     self.SSI_INCLUDE_DIRECTORY = 'core\\include\\;'
     self.SSI_LIB_DIRECTORY = 'libs\\Win32\\vc10\\;'
-    self.SSI_BIN_DIRECTORY = 'bin\\Win32\\vc10\\;'
+    self.SSI_BIN_DIRECTORY = 'bin\\Win32\\vc10\\'
     self.SSI_PLUGINS_DIRECTORY = 'plugins\\'
     self.SSI_PLUGINS_INCLUDE_DIRECTORY = 'plugins\\%s\\include\\;'
     self.SSI_PLUGIN_SOURCE_DIRECTORY = "source\\%s"
@@ -84,13 +84,11 @@ class ProjectConfigurator:
     self.findChild(properties_node, "OutDir").text =  self.SSI_DIR_PREFIX % self.SSI_BIN_DIRECTORY
     pass
   def editReleaseProperties(self, properties_node):
-    
-    self.findChild(properties_node, "OutDir")
     self.findChild(properties_node, "TargetName").text = "ssi$(ProjectName)"
     self.findChild(properties_node, "OutDir").text =  self.SSI_DIR_PREFIX % self.SSI_BIN_DIRECTORY
     pass
   def editReleaseLink(self, link_node):
-    self.findChild(link_node, "AdditionalLibraryDirectories").text = (self.SSI_DIR_PREFIX % self.SSI_LIB_DIRECTORY) + (self.SSI_DIR_PREFIX % self.SSI_BIN_DIRECTORY)
+    self.findChild(link_node, "AdditionalLibraryDirectories").text = (self.SSI_DIR_PREFIX % self.SSI_LIB_DIRECTORY) + (self.SSI_DIR_PREFIX % self.SSI_BIN_DIRECTORY) + ";"
     self.findChild(link_node, "AdditionalDependencies").text = ""
     self.findChild(link_node, "OutputFile").text = "$(TargetPath)"
     
@@ -102,7 +100,7 @@ class ProjectConfigurator:
     self.findChild(clcompile_node, "AdditionalIncludeDirectories").text = (self.SSI_DIR_PREFIX % self.SSI_INCLUDE_DIRECTORY) + (self.SSI_CURRENT_PLUGIN_PREFIX % (self.SSI_PLUGIN_INCLUDE_DIRECTORY % ""))
     pass
   def editDebugLink(self, link_node):
-    self.findChild(link_node, "AdditionalLibraryDirectories").text = (self.SSI_DIR_PREFIX % self.SSI_LIB_DIRECTORY) + (self.SSI_DIR_PREFIX % self.SSI_BIN_DIRECTORY)
+    self.findChild(link_node, "AdditionalLibraryDirectories").text = (self.SSI_DIR_PREFIX % self.SSI_LIB_DIRECTORY) + (self.SSI_DIR_PREFIX % self.SSI_BIN_DIRECTORY) + ";"
     self.findChild(link_node, "AdditionalDependencies").text = ""
     self.findChild(link_node, "OutputFile").text = "$(TargetPath)"
     pass
